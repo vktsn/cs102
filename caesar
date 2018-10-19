@@ -1,4 +1,4 @@
-def  encrypt_caesar(plainttext: str): -> str
+def  encrypt_caesar(plainttext: str) -> str:
     ciphertext = ''
     for ch in plaintext:
         if 'a' <= ch <= 'z' or 'A' <= ch <= 'Z':
@@ -13,7 +13,7 @@ def  encrypt_caesar(plainttext: str): -> str
 
 
 
-def decrypt_caesar(ciphertext: str): -> str
+def decrypt_caesar(ciphertext: str) -> str:
     plaintext = ''
     for ch in ciphertext:
         if 'a' <= ch <= 'z' or 'A' <= ch <= 'Z':
