@@ -5,5 +5,5 @@
 
 1.https://dementiy.github.io/practice/
 
-2. [Объектно-ориентированное программирование](https://books.ifmo.ru/file/pdf/2256.pdf)
+2.[Объектно-ориентированное программирование](https://books.ifmo.ru/file/pdf/2256.pdf)
 
