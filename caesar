@@ -19,10 +19,10 @@ def decrypt_caesar(ciphertext: str) -> str:
         if 'a' <= ch <= 'z' or 'A' <= ch <= 'Z':
             code = ord(ch)
             if code < ord('d') and code > ord('Z') or code < ord('D'):
-                code += 23
+                plaintext += chr(code + 23)
             else:
-                plaintext += chr(code+3)
-            plaintext += chr(code)
+                plaintext += chr(code - 3)
         else:
             plaintext += ch
-    return plaintext
+    print(plaintext)
+
