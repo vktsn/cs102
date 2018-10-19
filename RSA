@@ -1,21 +1,21 @@
 import random
 
-w = int(input())
-def is_prime(w):
+
+def is_prime(w: int) ->int:
     i = 2
     j = 0
-    while i ** 2 <= n and j != 1:
+    while i ** 2 <= w and j != 1:
         if w % i == 0:
             j = 1
         i += 1
     if j == 0:
-        return (True)
+        return 1
     else:
-        return (False)
+        return 0
     pass
 
 
-def gcd(a, b):
+def gcd(a: int, b: int) -> int:
     while a != 0 and b != 0:
         if a > b:
             a = a % b
@@ -23,20 +23,23 @@ def gcd(a, b):
             b = b % a
     nod = a + b
     if nod == 1:
-        return (True)
+        return 1
     else:
-        return (False)
+        return 0
     pass
 
 
-def multiplicative_inverse(e, phi):
-    """
-    Euclid's extended algorithm for finding the multiplicative
-    inverse of two numbers.
-    >>> multiplicative_inverse(7, 40)
-    23
-    """
-    # PUT YOUR CODE HERE
+def multiplicative_inverse(e: int, phi: int) -> int:
+    t, l = 40, 7
+    t1 = t
+    x1, x2, y1, y2 = 1, 0, 0, 1
+    while l:
+        q = t // l
+        t, l = l, t % l
+        x1, x2 = x2, x1 - x2 * q
+        y1, y2 = y2, y1 - y2 * q
+    d = y1 % t1
+    return d
     pass
 
 
@@ -47,8 +50,6 @@ def generate_keypair(p, q):
         raise ValueError('p and q cannot be equal')
 
     n = p*q
-
-
     phi = (p-1)*(q-1)
 
 
