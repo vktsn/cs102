@@ -5,9 +5,9 @@ def encrypt_vigenere(plaintext: str, keyword: str) -> str:
             shift = ord(keyword[index % len(keyword)]) #
             if 'a' <= ch <= 'z':
                 shift -= ord('a')
-            else: shift -= ord('A')  #ищем порядковый номер в заданном алфавите
-            code = ord(ch) + shift #смещение кода символа
-            if 'a' <= ch <= 'z' and code > ord('z'): #код не должен выходить за пределы алфавита
+            else: shift -= ord('A')  
+            code = ord(ch) + shift 
+            if 'a' <= ch <= 'z' and code > ord('z'): 
                 code -= 26
             elif 'A' <= ch <= 'Z' and code > ord('Z'):
                 code -= 26
