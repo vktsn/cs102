@@ -1,4 +1,4 @@
-def encrypt_vigenere(plaintext: str, keyword: str): -> str
+def encrypt_vigenere(plaintext: str, keyword: str) -> str:
     chiphertext = ''
     for index, ch in enumerate(plaintext):
         if 'a' <= ch <= 'z' or 'A' <= ch <= 'Z':
@@ -14,10 +14,9 @@ def encrypt_vigenere(plaintext: str, keyword: str): -> str
             chiphertext += chr(code)
         else:
             chiphertext += ch
-
     return chiphertext
 
-def decrypt_vigenere(ciphertext: str, keyword: str): -> str
+def decrypt_vigenere(ciphertext: str, keyword: str) -> str:
     plaintext = ''
     for index, ch in enumerate(ciphertext):
         if 'a' <= ch <= 'z' or 'A' <= ch <= 'Z':
