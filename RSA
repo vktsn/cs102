@@ -30,15 +30,14 @@ def gcd(a: int, b: int) -> int:
 
 
 def multiplicative_inverse(e: int, phi: int) -> int:
-    t, l = 40, 7
-    t1 = t
     x1, x2, y1, y2 = 1, 0, 0, 1
-    while l:
-        q = t // l
-        t, l = l, t % l
+    phi1 = phi
+    while e:
+        q = phi // e
+        phi, e = e, phi % e
         x1, x2 = x2, x1 - x2 * q
         y1, y2 = y2, y1 - y2 * q
-    d = y1 % t1
+    d = y1 % phi1
     return d
     pass
 
