@@ -1,4 +1,6 @@
-from typing import List, Union, Any, Optional
+from typing import List, Union, Optional
+import random
+
 
 def read_sudoku(filename: str) -> list:
     digits = [c for c in open(filename).read() if c in '123456789.']
@@ -10,23 +12,23 @@ def display(values: list) -> None:
     width = 2
     line = '+'.join(['-' * (width * 3)] * 3)
     for row in range(9):
-        print(''.join(values[row][col].center(width) + ('|' if str(col) in '25' else '') for col in range(9)))
+        print(''.join(values[row][col].center(width) +
+                      ('|' if str(col) in '25' else '') for col in range(9)))
         if str(row) in '25':
             print(line)
     print()
 
 
 def group(values: list, n: int) -> list:
-     return [values[i:i + n] for i in range(0, len(values)-1, n)]
+    return [values[i:i + n] for i in range(0, len(values)-1, n)]
 
 
-
-def get_row(values: list, pos: tuple) -> list: #строка
+def get_row(values: list, pos: tuple) -> list:
     row, _ = pos
     return values[row]
 
 
-def get_col(values: list, pos: tuple) -> list: #столбец
+def get_col(values: list, pos: tuple) -> list:
     _, col = pos
     return [values[row][col] for row in range(len(values))]
 
@@ -38,12 +40,12 @@ def get_block(values: list, pos: tuple) -> list:
     return [values[br+r][bc+c] for r in range(3) for c in range(3)]
 
 
-def find_empty_positions(grid: list)-> Union[tuple, None]:
+def find_empty_positions(grid: list) -> Union[tuple, None]:
     for col in range(len(grid)):
         for row in range(len(grid)):
             if grid[row][col] == '.':
                 return (row, col)
-    return
+    return None
 
 
 def find_possible_values(grid: list, pos: tuple) -> set:
@@ -53,7 +55,7 @@ def find_possible_values(grid: list, pos: tuple) -> set:
         set(get_block(grid, pos))
 
 
-def solve(grid: list)-> Union[list, None]:
+def solve(grid: list) -> Union[list, None]:
     pos = find_empty_positions(grid)
     if not pos:
         return grid
@@ -85,6 +87,7 @@ def check_solution(solution: list) -> bool:
                 return False
 
     return True
+
 
 def generate_sudoku(n: int) -> list:
     grid = solve([['.'] * 9 for _ in range(9)])
