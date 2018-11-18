@@ -1,6 +1,7 @@
 import pygame
 from pygame.locals import *
 import random
+import copy
 
 
 class GameOfLife:
@@ -104,35 +105,17 @@ class GameOfLife:
         return neighbours
 
     def update_cell_list(self, cell_list: list) -> list:
-        """ Выполнить один шаг игры.
-        Обновление всех ячеек происходит одновременно. Функция возвращает
-        новое игровое поле.
-        :param cell_list: Игровое поле, представленное в виде матрицы
-        :return: Обновленное игровое поле
-        """
-        y, x = 0, 0
-        new_clist = [[0] * self.cell_width for i in range(self.cell_height)]
-        clist = cell_list.copy()
-        for i in range(len(cell_list)):
-            new_clist.append([])
-            for j in range(len(cell_list[i])):
-                new_clist[i].append(0)
-        for row in cell_list:
-            for col in row:
-                if (col == 1):
-                    if (1 < self.get_neighbours((y, x)).count(1) < 4):
-                        new_clist[y][x] = 1
-                    else:
-                        new_clist[y][x] = 0
-                else:
-                    if (self.get_neighbours((y, x)).count(1) == 3):
-                        new_clist[y][x] = 1
-                    else:
-                        new_clist[y][x] = 0
-                x += 1
-            x = 0
-            y += 1
-        return new_clist
+        new_clist = copy.deepcopy(cell_list)
+
+        for i in range(self.cell_height):
+            for j in range(self.cell_width):
+                if sum(self.get_neighbours((i, j))) != 2 and \
+                        sum(self.get_neighbours((i, j))) != 3:
+                            new_clist[i][j] = 0
+                elif sum(self.get_neighbours((i, j))) == 3:
+                    new_clist[i][j] = 1
+        self.clist = new_clist
+        return self.clist
 
 
 if __name__ == '__main__':
