@@ -91,7 +91,7 @@ def check_solution(solution: list) -> bool:
 
 def generate_sudoku(n: int) -> list:
     grid = solve([['.'] * 9 for _ in range(9)])
-    N = 81 - min(81, max(0, N))
+    n = 81 - min(81, max(0, n))
     while N:
         row = random.randint(0, 8)
         col = random.randint(0, 8)
