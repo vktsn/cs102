@@ -47,7 +47,6 @@ class GameOfLife:
                     running = False
             self.draw_grid()
             self.draw_cell_list(self.clist)
-
             self.clist = self.update_cell_list(self.clist)
             pygame.display.flip()
             clock.tick(self.speed)
