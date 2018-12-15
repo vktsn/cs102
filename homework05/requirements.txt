@@ -1,0 +1,9 @@
+beautifulsoup4
+
+bs4
+
+pyTelegramBotAPI==3.6.6
+
+requests
+
+html5lib
