@@ -24,10 +24,10 @@ def get_page(group, week=''):
 
 
 def parse_schedule_for_a_day(web_page, number_day: str):
-    # Получить расписание на указанный день
+    # Получить таблицу расписания на указанный день
     soup = BeautifulSoup(web_page, "html5lib")
 
-    # Получаем таблицу с расписанием на день
+    # Получаем таблицу на нужный день
     schedule_table = soup.find("table", attrs={"id": number_day + "day"})
 
     # Время проведения занятий
@@ -42,19 +42,20 @@ def parse_schedule_for_a_day(web_page, number_day: str):
     # Название дисциплин и имена преподавателей
     lessons_list = schedule_table.find_all("td", attrs={"class": "lesson"})
     lessons_list = [lesson.text.split('\n\n') for lesson in lessons_list]
-    lessons_list = ['\n'.join([info for info in lesson_info if info]).
-                        replace("\t", "").replace("\n", "") for
-                    lesson_info in
-                    lessons_list]
+    lessons_list = ['\n'.join([info for info in lesson_info if info]
+                              ).replace("\t", "").replace("\n", "")
+                    for lesson_info in lessons_list]
 
     return times_list, locations_list, lessons_list
 
 
 def parse_schedule_for_a_near_lesson(web_page, number_day: str):
+    # получить таблицу расписания для ближайшего занятич
     soup = BeautifulSoup(web_page, "html5lib")
     status = True
     # Получаем таблицу с расписанием на день
     schedule_table = soup.find("table", attrs={"id": number_day + "day"})
+    # если таблица пустая статус = 0
     if schedule_table is None:
         status = False
         return status, None
@@ -78,15 +79,17 @@ def parse_schedule_for_a_near_lesson(web_page, number_day: str):
                                'thursday', 'friday', 'saturday', 'sunday'])
 def get_schedule(message):
     try:
-        """ Получить расписание на указанный день """
+        # если введено три значения, то будет с неделей
         param = message.text.split()
         if len(param) == 3:
             day, group, week = param
             web_page = get_page(group, week)
         else:
+            # если два - то расписание на обе недели
             day, group = param
             web_page = get_page(group)
 
+        # получаем номер дня
         day_number = "-1"
         if day == "/monday":
             day_number = "1"
@@ -130,11 +133,17 @@ def get_near_lesson(message):
         resp = ''
         find = False
         while True:
+            # получаем статус с списки из функции получения таблицы
             status, lists = parse_schedule_for_a_near_lesson(
                 web_page, str(day))
+            # если статус = 0, значит, в этот день нет расписания
+            # пропущенный день = 1
+            # нужно шагнуть на один день вперед
             if not status:
                 skip_day = True
                 day += 1
+                # если номер дня = 8
+                # то заходит на следующую неделю
                 if day > 7:
                     day = 1
                     if week_number == 2:
@@ -142,6 +151,7 @@ def get_near_lesson(message):
                     else:
                         week_number = 2
                     web_page = get_page(group, str(week_number))
+                    # продолжать, пока статус не станет = 1
                 continue
             times = lists[0]
             if skip_day:
@@ -159,6 +169,8 @@ def get_near_lesson(message):
                 elif i == len(times) - 1:
                     skip_day = True
                     day += 1
+                    # если номер дня = 8
+                    # то переход на следующую неделю
                     if day > 7:
                         day = 1
                         if week_number == 2:
@@ -215,6 +227,7 @@ def get_all_schedule(message):
         else:
             week_number = "2"
         web_page = get_page(group, week_number)
+        # получаем расписание группы без указания дня
         send_message(message, web_page, "0")
     except ValueError:
         bot.send_message(message.chat.id,
@@ -222,16 +235,21 @@ def get_all_schedule(message):
 
 
 def send_message(message, web_page, day_number):
+    # если расписание на день, а не на неделю
     if not day_number == "0":
         try:
+            # получаем данные из функции для получения таблицы расписания
             times_lst, locations_lst, lessons_lst =\
                 parse_schedule_for_a_day(web_page, str(day_number))
+            # записываем все данные в переменную
+            # после выводим
             resp = ''
             for time, location, lession in zip(times_lst,
                                                locations_lst, lessons_lst):
                 resp += '<b>{}</b>, {}, {}\n'.format(time, location, lession)
             bot.send_message(message.chat.id, resp, parse_mode='HTML')
         except AttributeError:
+            # если не удается найти таблицу, пар нет
             resp = "<b>Нет пар</b>"
             bot.send_message(message.chat.id, resp, parse_mode='HTML')
     else:
@@ -239,6 +257,9 @@ def send_message(message, web_page, day_number):
         days = ("Понедельник", "Вторник", "Среда", "Четверг",
                 "Пятница", "Суббота", "Воскресение")
         i = 0
+        # для каждого дня в списке
+        # получаем расписание на каждый день с данным номером
+        # и меняется от 1 до 8
         for day in days:
             i += 1
             resp += "<b>" + day + "</b>" + ":" + "\n"
@@ -256,4 +277,3 @@ def send_message(message, web_page, day_number):
 
 if __name__ == '__main__':
     bot.polling(none_stop=True)
-    
