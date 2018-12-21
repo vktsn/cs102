@@ -61,4 +61,3 @@ def age_predict(user_id: int) -> Optional[float]:
 if __name__ == '__main__':
     user_id = int(config.VK_CONFIG['user_id'])
     print('Age:', int(age_predict(user_id)))
-    
