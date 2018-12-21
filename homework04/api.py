@@ -31,8 +31,8 @@ def get(url, params={}, timeout=5, max_retries=5, backoff_factor=0.3):
 # функция для получение списка друзей пользователя в формате джейсон
 def get_friends(user_id, fields):
     """ Вернуть данных о друзьях пользователя
-    :param user_id: идентификатор пользователя, список друзей которого нужно получить
-    :param fields: список полей, которые нужно получить для каждого пользователя
+    :param user_id: идентиф пользователя, список друзей которого нужно получить
+    :param fields: список полей, которые нужно получить для пользователя
     """
     # айди должен быть положительным инт
     assert isinstance(user_id, int), "user_id must be positive integer"
@@ -48,8 +48,9 @@ def get_friends(user_id, fields):
         'fields': fields,
         'v': config.VK_CONFIG['version']
     }
-    query = "{domain}/friends.get?access_token={access_token}&user_id={user_id}&fields={fields}&v={v}".format(
-        **query_params)
+    query = "{domain}/friends.get?access_token={access_token}" \
+            "&user_id={user_id}&fields={fields}" \
+            "&v={v}".format(**query_params)
     # запрос по указанному адресу с заданными параметрами
     response = get(query, query_params)
     # переводим в джейсон
@@ -60,12 +61,10 @@ def get_friends(user_id, fields):
     return json_file['response']['items']
 
 
-
-
-
 def messages_get_history(user_id: int, offset=0, count=200) -> list:
     """ Получить историю переписки с указанным пользователем
-    :param user_id: идентификатор пользователя, с которым нужно получить историю переписки
+    :param user_id: идентификатор пользователя, с
+    которым нужно получить историю переписки
     :param offset: смещение в истории переписки
     :param count: число сообщений, которое нужно получить
     """
@@ -88,8 +87,8 @@ def messages_get_history(user_id: int, offset=0, count=200) -> list:
     messages = []
     while count > 0:
         query = "{domain}/messages.getHistory?" \
-            "access_token={access_token}&user_id={user_id}&offset={offset}&count={messages_count}&v={v}"\
-            .format(**query_params)
+            "access_token={access_token}&user_id={user_id}&offset={offset}" \
+                "&count={messages_count}&v={v}".format(**query_params)
         # выполняем запрос по нужному адресу с нужными параметрами
         response = get(query, query_params)
         # если есть результат
