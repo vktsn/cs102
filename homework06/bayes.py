@@ -71,4 +71,4 @@ class NaiveBayesClassifier:
                 count += 1
         score = count / len(y_test)
         return score
-        
+    
