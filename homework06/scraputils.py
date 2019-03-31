@@ -2,7 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 
 
-# синтаксический анализатор (текст преобразуется в структуру данных)
+# синтаксический анализатор (текст преобразуется в структуру данных) 
 def extract_news(parser):
     news_list = []
     # заголовок
