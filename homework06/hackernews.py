@@ -2,7 +2,7 @@ from bottle import route, run, template, redirect,request
 
 from scraputils import get_news
 from db import News, session
-from bayes import NaiveBayesClassifier
+from bayes import NaiveBayesClassifier 
 from sqlalchemy.orm import load_only
 
 @route("/news")
