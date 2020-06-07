@@ -214,4 +214,54 @@ ALTER TABLE public."Worker"
 COMMENT ON TABLE public."Worker"
     IS 'Таблица Работник, содержащая информаю о работниках агенства.';
     
+    
+    
+INSERT INTO public."Client"(
+	"Name", email, phone)
+	VALUES 
+    ('Ivanov Ivan', 'ii@mail.ru', '111-111'),
+    ('Petrov Petr', 'pp@mail.ru', '222-222'),
+    ('Nikitin Nikita', 'nn@mail.ru', '333-333'),
+    ('Dmitriev Dmitrii', 'dd@mail.ru', '444-444'),
+    ('Egorov Egor', 'ee@mail.ru', '555-555');
+    
+INSERT INTO public."Labor_contract"(
+	"Req_ID", "Work_ID", "Dates")
+	VALUES 
+    ('1', '1', '10/01-10/02'),
+    ('2', '2', '05/02-15/02'),
+    ('3', '3', '11/02-19/02'),
+    ('4', '4', '01/03-01/05'),
+    ('5', '5', '03/03-08/3');
+    
+INSERT INTO public."Material"(
+	"Mat_ID", "Serv_ID", "Number", "Total cost")
+	VALUES 
+    ('1', '1', '1', '1.000'),
+    ('2', '1', '3', '600'),
+    ('3', '1', '4', '200'),
+    ('4', '2', '5', '1.500'),
+    ('5', '2', '1', '700');
+    
+INSERT INTO public."Material_list"(
+	"Mat_ID", "Naming", "Descroption", "Cost")
+	VALUES 
+    ('1', 'Blue paper', 'Like sky', '1.000'),
+    ('2', 'Red paper', 'Like blood', '200'),
+    ('3', 'Yellow paper', 'Like sun', '50'),
+    ('4', 'Black paper', 'Like night', '300'),
+    ('5', 'Green paper', 'Like grass', '700');
+    
+ 
+ INSERT INTO public."Payment_order"(
+	"Req_ID", "Status", "Date")
+	VALUES 
+    ('1', 'Y', '12/01'),
+    ('2', 'N', '-'),
+    ('3', 'N', '-'),
+    ('4', 'Y', '02/03'),
+    ('5', 'N', '-');
+    
+    
+    
  
