@@ -262,6 +262,38 @@ INSERT INTO public."Material_list"(
     ('4', 'Y', '02/03'),
     ('5', 'N', '-');
     
+INSERT INTO public."Price_list"(
+	"Serv_ID", "Naming", "Description", "Cost")
+	VALUES 
+	('1', 'Beautiful paper', 'Very nice', '10.000'), 
+	('2', 'Colorful paper', 'A lot of colors', '12.000'), 
+	('3', 'Just paper', 'Nothing extra', '5.000'), 
+	('4', 'No paper', 'Nothing', '1.000'), 
+	('5', 'Ugly paper', 'Fu', '112.000');
     
-    
- 
+INSERT INTO public."Request"(
+	"Req_ID", "Name", "Date")
+	VALUES
+	('1', 'Ivanov Ivan', '09/01'), 
+	('2', 'Petrov Petr', '02/02'), 
+	('3', 'Nikitin Nikita', '10/02'), 
+	('4', 'Dmitriev Dmitrii', '28/02'), 
+	('5', 'Egorov Egor', '01/03'); 
+
+INSERT INTO public."Service"(
+	"Serv_ID", "Req_ID", "Total cost")
+	VALUES 
+	('1', '1', '20.000'),
+	('2', '2', '10.000'),
+	('3', '3', '10.000'),
+	('4', '4', '12.000'),
+	('5', '5', '24.000');
+	
+INSERT INTO public."Worker"(
+	"Work_ID", "FIO", "Expirience", "Contacts")
+	VALUES 
+	('1', 'III', '1 year', '123-123'),
+	('2', 'ERW', '23 years', 'erw@mail.ru'),
+	('3', 'VGF', '2 weeks', '@vgf'),
+	('4', 'VKS', '6 days', '231-231'),
+	('5', 'AWG', '7 months', 'awg@gmail.com');
